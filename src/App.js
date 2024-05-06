@@ -10,7 +10,7 @@ function App() {
       <span>MediHistory</span>
      </div>
      <div className="sub">
-     <span>개인 진료 정보 조회</span>
+     <span>개인 진료 정보 조회 ㅎㅎ</span>
      </div>
 
     <div className='login-buttons'>
