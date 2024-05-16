@@ -1,0 +1,58 @@
+
+.main {
+  color : hsl(225, 72%, 62%);
+  font-size: 96px;
+  font-family: Inter;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 250px;
+
+}
+.sub {
+  color : #60A5E9;
+  font-size: 40px;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 48.41px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+
+
+.kakao-button, .naver-button {
+  width: 100px;
+  height: 130px;
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.kakao-button, .naver-button a {
+  width: 100px;
+  height: 130px !important;
+}
+
+
+.kakao-login, .naver-login {
+  width: 100px;
+  height: 130px;
+  border: none;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+
+
+
+.naver-login:hover, .kakao-login:hover {
+  opacity: 0.8;
+}
