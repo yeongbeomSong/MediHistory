@@ -88,7 +88,7 @@ public class EasyCodef {
 	 * @throws JsonProcessingException
 	 * @throws InterruptedException
 	 */
-	public String requestProduct(String productUrl, EasyCodefServiceType serviceType, HashMap<String, Object> parameterMap) throws UnsupportedEncodingException, JsonProcessingException, InterruptedException {
+	public String  requestProduct(String productUrl, EasyCodefServiceType serviceType, HashMap<String, Object> parameterMap) throws UnsupportedEncodingException, JsonProcessingException, InterruptedException {
 		boolean validationFlag = true;
 		
 		/**	#1.필수 항목 체크 - 클라이언트 정보	*/
