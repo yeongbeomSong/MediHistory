@@ -1,0 +1,215 @@
+.select {
+    margin: 50px 50px 0 50px;
+
+    table th:first-child,
+    table td:first-child {
+        width: 50%;
+    	border-left: 0;
+    }
+
+    table th:last-child,
+    table td:last-child {
+        width: 50%;
+    	border-right: 0;
+    }
+
+    table {
+        width : 100%;
+        border-collapse : collapse;
+        text-align : center;
+    }
+
+    td {
+      border : 2px solid black;
+    }
+}
+
+.selected {
+    background-color: 5679E4;
+    
+}
+
+.title {
+    margin: 10px 50px;
+    text-align : left;
+    font-family: Inter;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 58.09px;
+
+
+}
+
+.label {
+    background-color : rgb(117,117,117,0.2);
+    width : 20%;
+}
+
+.textarea {
+    margin : auto 10px auto 10px;
+    width : 40%;
+    height : 15px;
+}
+.btn {
+    width: 70px;
+    margin: auto 0 auto 5px;
+    text-align: center;
+    font-weight: bold;
+    border-width: 1px;
+    border-color: black;
+    background-color: white;
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+.list_table {
+    margin: 0 50px 10px 50px;
+
+    table th:first-child,
+        table td:first-child {
+        	border-left: 0;
+        }
+
+        table th:last-child,
+        table td:last-child {
+        	border-right: 0;
+        }
+
+        table {
+            width : 100%;
+            border-collapse : collapse;
+            text-align : center;
+        }
+
+        td {
+          border : 2px solid black;
+        }
+}
+
+.list_title {
+    background-color : rgb(96,165,233,0.4);
+    font-weight: bold;
+    text-align: center;
+}
+
+.list {
+
+    text-align: center;
+
+    height : 50px;
+
+    td:first-child {
+        background-color : rgb(117,117,117,0.2);
+        font-weight: bold;
+    }
+
+}
+
+a {
+    text-decoration: none;
+}
+
+.not_selected > h2 > a:visited {
+    color: #5679E4;
+}
+
+.selected {
+    background-color : #5679E4;
+}
+
+.selected > h2 > a:visited {
+    color: white;
+}
+
+.page_btn {
+
+    margin-left : auto;
+    margin-right : auto;
+
+    font-weight : bold;
+    font-size : large;
+
+    td {
+        width : 30px;
+        height : 50px;
+    }
+
+}
+
+.page_btn > td > a:visited {
+    color: black;
+}
+
+
+
+.check {
+    margin: 10px 50px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: Inter;  
+    position: relative; 
+}
+
+
+.check h1 {
+    margin-right: 50px;
+    text-align: center; /* 조회 기간 텍스트와 첫 번째 버튼 사이의 간격을 조정합니다. */
+}
+
+
+.periodButtons {
+    display: flex;
+    gap: 10px; /* 각 버튼 사이의 간격을 조정할 수 있습니다. */
+    border-radius: 2px;
+}
+
+
+.periodButton {
+    padding: 10px 20px;
+    border: none;
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer;
+    border: 1px solid #000000;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24.2px;
+    text-align: center;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    border-radius: 5px;    
+    position: relative; 
+}
+
+.periodButton.selected {
+    background-color: #5679E4;
+    color: #ffffff;
+    border: 1px solid #000000;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24.2px;
+    text-align: center;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    border-radius: 5px;
+}
+
+
+.width_line {
+    border: 1px solid #000000;
+    width: 100%; 
+
+}
+
+
+.height_line {
+    border: 1px solid #000000;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    /*width: 1px;*/
+    height: 100%;
+    transform: translateX(-50%);
+} 
+
