@@ -1,6 +1,10 @@
 import './Drug_Detail.css';
+import React, { useState, useEffect } from 'react';
 
 function DrugDetail() {
+    const drug = document.getElementById("drug");
+
+//    var ele = [{drug.itemImage},{drug.itemName},{drug.entpName},{drug.efcyQesitm},{drug.useMethodQesitm},{drug.atpnWarnQesitm},{drug.atpnQesitm},{drug.intrcQesitm},{drug.seQesitm},{drug.depositMethodQesitm},];
     var attr = ["제품사진","제품명","업체명","효능","사용법","주의사항경고","주의사항","상호작용","부작용","보관법"];
     var h = ["300px","20px","20px","150px","150px","150px","150px","150px","150px","150px"];
 
@@ -8,9 +12,9 @@ function DrugDetail() {
         const result = [];
 
         for(let i = 0; i < attr.length; i++){
-            result.push(<tr className="list">
+            result.push(<tr className="list" height={h[i]}>
                 <td>{attr[i]}</td>
-                <td height={h[i]}></td>
+                <td></td>
             </tr>);
         }
 

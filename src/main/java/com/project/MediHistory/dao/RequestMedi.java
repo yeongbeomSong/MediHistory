@@ -8,20 +8,19 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import static io.codef.api.EasyCodefClientInfo.*;
 
 public class RequestMedi {
 
-    public static String requestMedi() throws IOException, InterruptedException, ParseException {
-//		SpringApplication.run(MediHistoryApplication.class, args);
+    public static HashMap<String, Object> requestMedi(Map<String, Object> userData) throws IOException, InterruptedException, ParseException {
 
         String productUrl = "/v1/kr/public/pp/nhis-treatment/information";
         String ID = "testID" + UUID.randomUUID();
         String password = "testPWD";
         String result;
-//		RequestProduct.requestProduct(productUrl,ID);
 
         EasyCodef codef = new EasyCodef();
         codef.setClientInfoForDemo(DEMO_CLIENT_ID	, DEMO_CLIENT_SECRET);
@@ -73,7 +72,6 @@ public class RequestMedi {
         System.out.println(twoWayTimestamp);
 
 //간편인증 추가인증 입력부
-        parameterMap.put("simpleAuth", "1");
         parameterMap.put("is2Way", true);
 
 /** #3.twoWayInfo 파라미터 설정*/
@@ -85,13 +83,11 @@ public class RequestMedi {
 
         parameterMap.put("twoWayInfo", twoWayInfo);
 
-        result = codef.requestCertification(productUrl, EasyCodefServiceType.DEMO, parameterMap);
-
 /** #4.결과값 확인 */
 
         System.out.println("추가 인증" + result);
 
-        return result;
+        return parameterMap;
     }
 
 }

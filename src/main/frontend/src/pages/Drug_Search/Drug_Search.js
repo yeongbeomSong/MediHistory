@@ -31,18 +31,19 @@ function DrugSearch() {
     };
 
     const list = () => {
-        if(drugList != null){
+        console.log(drugList);
+        if(drugList && drugList.length > 0){
             return drugList.map((drug, index) => (
                 <tr className="list">
                     <td>{index + 1}</td>
-                    <td><a href="/drug_detail"> {drug.itemName} </a></td>
+                    <td><a href="http://localhost:8080/mh/drug-detail?drugName=${drug.itemName}"> {drug.itemName} </a></td>
                     <td>{drug.itemImage && (<img className="drugImage" src={drug.itemImage}/>)}</td>
                     <td> {drug.entpName} </td>
                     <td> {drug.efcyQesitm} </td>
                 </tr>
             ));
         } else {
-            return ;
+            return <tr height='200px'><td colspan='5'>검색 결과가 없습니다.</td></tr>;
         }
     };
 

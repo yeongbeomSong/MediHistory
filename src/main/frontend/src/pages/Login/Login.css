@@ -1,59 +1,175 @@
-
 .main {
-    color : hsl(225, 72%, 62%);
-    font-size: 96px;
-    font-family: Inter;
-    font-weight: 900;
+  color: hsl(225, 72%, 62%);
+  font-size: 96px;
+  font-family: Inter;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 250px;
+}
+
+.sub {
+  color: #60A5E9;
+  font-size: 40px;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 48.41px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+/* 입력폼 */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* 입력폼 컨테이너 */
+.form-container {
+  border: 1px solid #ccc; /* 테두리 추가 */
+  border-radius: 55px; /* 모서리를 둥글게 */
+  padding: 20px;
+  width: 800px; /* 고정된 너비 */
+  height: 500px; /* 고정된 높이 추가 */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* 수직 정렬 */
+  margin-bottom: 250px;
+}
+
+.form-group {
+  position: relative;
+  margin: 27px 0;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* 입력값 */
+.form-group input {
+  width: 100%;
+  padding: 8px 0;
+  font-size: 20px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background: none;
+  outline: none;
+}
+
+
+/* 입력 받고자 하는 값 안내*/
+.form-group label {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  color: #aaa;
+  transition: 0.2s ease all;
+  pointer-events: none;
+  font-size: 20px;
+}
+
+/* 값을 입력할때 위에 작게 입력 받고자 하는 값 보여주기*/
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top: -17px;
+  font-size: 15px;
+  color: #5679E4;
+}
+
+
+/* 유효하지 않은 입력 필드 스타일 */
+.invalid input,
+.invalid input:focus,
+.invalid input:invalid {
+  border-bottom: 1px solid red;
+  color: red;
+}
+
+.invalid label {
+  color: red;
+}
+
+
+
+/* 유효하지 않은 값 넣었을때 오류 메시지 스타일 */
+.error-message {
+  color: red;
+  font-size: 15px;
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  display: none; /* 처음에는 오류 메시지를 숨김 */
+}
+
+.invalid .error-message {
+  display: block; /* 유효하지 않은 상태일 때만 오류 메시지를 표시 */
+}
+
+
+
+/* 로그인 버튼 위치 조정 */
+.login-buttons {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 30px; /* 간편인증 버튼과 폼 사이에 간격 증가 */
+  margin-bottom: 20px;
+}
+
+/* 간편인증 로그인 버튼 크기 조정*/
+.kakao-button, .naver-button {
+  width: 100px;
+  height: 130px;
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 15px;
+}
+
+/* 이미지로 넣은 간편인증 로그인 버튼 */
+.kakao-login, .naver-login {
+  width: 100px;
+  height: 130px;
+  border: none;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+
+.naver-login:hover, .kakao-login:hover {
+  opacity: 0.7;
+}
+
+.login-container {
+    width: 1440px; /* 원하는 너비 */
+    height: 768px; /* 원하는 높이 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+
+.auth-background {
+    padding: 5px;
+    border: 2px solid #60A5E9;
+    width: 500px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    background-color: white;
+    border-radius: 5px;
+    max-width: 500px;
+    max-height: 300px;
+}
+
+.auth-wait {
+    height: 80%;
+    align: center;
     text-align: center;
-    margin-top: 250px;
-    
-  }
-  .sub {
-    color : #60A5E9;
-    font-size: 40px;
-    font-family: Inter;
-    font-weight: 400;
-    line-height: 48.41px;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 15px;
-  }
-  
-  .login-buttons {
-    display: flex;
-    justify-content: center; 
-    text-align: center;
-  }
-  
-  
-  
-  .kakao-button, .naver-button {
-    width: 100px;
-    height: 130px;
-    display: inline-block;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 10px;
-  }
-  
-  .kakao-button, .naver-button a {
-    width: 100px;
-    height: 130px !important;
-  }
-  
-  
-  .kakao-login, .naver-login {
-    width: 100px;
-    height: 130px;
-    border: none;
-    cursor: pointer;
-    background: none;
-    padding: 0;
-  }
-  
-  
-  
-  .naver-login:hover, .kakao-login:hover {
-    opacity: 0.8;
-  }
-  
+    line-height: 250px;
+    font-weight: bold;
+    font-size: 20pt;
+    color : #5679E4;
+}
