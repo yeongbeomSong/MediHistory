@@ -13,12 +13,20 @@ import java.util.ArrayList;
 
 public class RequestDrug {
 
-    public static ArrayList<DrugDTO> reqDrugData(String drugName) {
+    public static ArrayList<DrugDTO> reqDrugData(String drugName, String entpName, String efcyQesitm) {
         ArrayList<DrugDTO> drugList = new ArrayList<>();
         StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList"); /*URL*/
         try {
             urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=5SLJHbthLfUwbxmtzMpPvbFQ%2BNpY7Z0DceaxjnSuqxBbx6oqDv7yRNdwY%2Fa7DzN2EBaj5jCrcq6wRL5L2REsew%3D%3D"); /*Service Key*/
-            urlBuilder.append("&" + URLEncoder.encode("itemName","UTF-8") + "=" + URLEncoder.encode(drugName, "UTF-8")); /*제품명*/
+            if(drugName != null && !drugName.equals("")) {
+                urlBuilder.append("&" + URLEncoder.encode("itemName", "UTF-8") + "=" + URLEncoder.encode(drugName, "UTF-8")); /*제품명*/
+            }
+            if(entpName != null && !entpName.equals("")) {
+                urlBuilder.append("&" + URLEncoder.encode("entpName", "UTF-8") + "=" + URLEncoder.encode(entpName, "UTF-8")); /*제품명*/
+            }
+            if(efcyQesitm != null && !efcyQesitm.equals("")) {
+                urlBuilder.append("&" + URLEncoder.encode("efcyQesitm", "UTF-8") + "=" + URLEncoder.encode(efcyQesitm, "UTF-8")); /*제품명*/
+            }
             urlBuilder.append("&" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답데이터 형식(xml/json) Default:xml*/
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

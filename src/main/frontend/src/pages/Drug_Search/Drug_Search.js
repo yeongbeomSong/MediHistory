@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './Drug_Search.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function DrugSearch() {
 
-    const [drugName, setDrugName] = useState('');
+    const [drugName, setDrugName] = useState(''); //의약품 이름
+    const [entpName, setEntpName] = useState(''); //의약품 이름
+    const [efcyQesitm, setEfcyQesitm] = useState(''); //의약품 이름
     const [drugList, setDrugList] = useState(null);
 
     const config = {
@@ -14,14 +17,27 @@ function DrugSearch() {
       }
     };
 
-    const handleInputChange = (event) => {
+    const handledrugNameChange = (event) => {
         setDrugName(event.target.value);
     };
 
+    const handleentpNameChange = (event) => {
+        setEntpName(event.target.value);
+    };
+
+    const handleefcyQesitmChange = (event) => {
+        setEfcyQesitm(event.target.value);
+    };
+
     const fetchDrugList = async () => {
+        if (!drugName && !entpName && !efcyQesitm) {
+            alert('검색할 정보를 입력해주세요.');
+            return;
+        }
+
         try {
-            const response = await axios.get("http://localhost:8080/mh/drug-search", {
-                params: { drugName },
+            const response = await axios.get("http://localhost:8080/drug-search", {
+                params: { drugName, entpName, efcyQesitm },
             });
             setDrugList(response.data);
         } catch (error) {
@@ -36,7 +52,11 @@ function DrugSearch() {
             return drugList.map((drug, index) => (
                 <tr className="list">
                     <td>{index + 1}</td>
-                    <td><a href="http://localhost:8080/mh/drug-detail?drugName=${drug.itemName}"> {drug.itemName} </a></td>
+                    <td>
+                        <Link to={`/drug_detail`} state={{ drug }}>
+                            {drug.itemName}
+                        </Link>
+                    </td>
                     <td>{drug.itemImage && (<img className="drugImage" src={drug.itemImage}/>)}</td>
                     <td> {drug.entpName} </td>
                     <td> {drug.efcyQesitm} </td>
@@ -83,7 +103,9 @@ function DrugSearch() {
                 <table>
                     <td align="center" className="label"><h3>약품 검색</h3></td>
                     <td>
-                        <input className="textarea" value={drugName} onChange={handleInputChange} placeholder="약품명을 입력하세요." />
+                        <input className="textarea" value={drugName} onChange={handledrugNameChange} placeholder="약품명" />
+                        <input className="textarea" value={entpName} onChange={handleentpNameChange} placeholder="업체명" />
+                        <input className="textarea" value={efcyQesitm} onChange={handleefcyQesitmChange} placeholder="증상" />
                         <button className="btn" onClick={fetchDrugList}>검색</button>
                     </td>
                 </table>

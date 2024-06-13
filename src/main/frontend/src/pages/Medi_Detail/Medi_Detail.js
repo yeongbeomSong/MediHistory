@@ -1,26 +1,39 @@
 import './Medi_Detail.css';
-import React, { useState } from 'react';
 import Modal from 'react-modal';
+import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 function MediDetail() {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const detailList = JSON.parse(decodeURIComponent(query.get('data')));
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const repeatList = () => {
+  console.log(detailList);
     const result1 =[];
-    for(let i = 1; i <= 5; i++) {
-      result1.push(<tr className="list">
-                                  <td width="5%"><h4>{i}</h4></td>
-                                  <td width="19%"><a href="/drug_detail">약품명</a></td>
-                                  <td width="19%"></td>
-                                  <td width="19%"></td>
-                                  <td width="19%"></td>
-                                  <td width="19%">
-                                    <img src={process.env.PUBLIC_URL+'/compose_icon.png'} onClick={()=> setModalIsOpen(true)} alt="etc"/>
-                                  </td>
-                                </tr>);
+    if(detailList && detailList.length > 0) {
+        return detailList.map((m, index) => (
+            <tr className="list">
+                <td width='3%'>{index+1}</td>
+                <td width='5%'>{m.resPrescribeDrugName}</td>
+                <td width='2%'>
+                    <img src={m.resDrugImageLink} />
+                </td>
+                <td width='5%'>{m.resPrescribeDrugEffect}</td>
+                <td width='5%'>{m.resPrescribeDays}</td>
+                <td width='15%' dangerouslySetInnerHTML={{ __html: m.resMedicationDirection }} />
+                <td width='5%'>
+                    <img src={process.env.PUBLIC_URL+'/compose_icon.png'} onClick={()=> setModalIsOpen(true)} alt="etc"/>
+                </td>
+            </tr>
+        ));
+    }else {
+        return <tr height='200px'><td colspan='7'>검색 결과가 없습니다.</td></tr>;
     }
-    return result1;
   };
 
   const repeatNum = () => {
@@ -60,8 +73,9 @@ function MediDetail() {
             <td><h3>순번</h3></td>
             <td><h3>약품명</h3></td>
             <td><h3>약품사진</h3></td>
-            <td><h3>복약안내</h3></td>
+            <td><h3>효능</h3></td>
             <td><h3>투약일수</h3></td>
+            <td><h3>복약안내</h3></td>
             <td><h3>메모</h3></td>
           </tr>
               {repeatList()}
@@ -70,11 +84,6 @@ function MediDetail() {
       <div>
       <p></p>
       </div>
-      <div>
-            <table className="page_btn">
-                {repeatNum()}
-            </table>
-        </div>
         <div className="dimmed">
                 <Modal
                     className="memo-background"

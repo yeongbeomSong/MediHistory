@@ -1,25 +1,47 @@
 import './Drug_Detail.css';
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function DrugDetail() {
-    const drug = document.getElementById("drug");
+    const location = useLocation();
+    const navigate = useNavigate();
 
-//    var ele = [{drug.itemImage},{drug.itemName},{drug.entpName},{drug.efcyQesitm},{drug.useMethodQesitm},{drug.atpnWarnQesitm},{drug.atpnQesitm},{drug.intrcQesitm},{drug.seQesitm},{drug.depositMethodQesitm},];
-    var attr = ["제품사진","제품명","업체명","효능","사용법","주의사항경고","주의사항","상호작용","부작용","보관법"];
-    var h = ["300px","20px","20px","150px","150px","150px","150px","150px","150px","150px"];
-
-    const list = () => {
-        const result = [];
-
-        for(let i = 0; i < attr.length; i++){
-            result.push(<tr className="list" height={h[i]}>
-                <td>{attr[i]}</td>
-                <td></td>
-            </tr>);
+    useEffect(() => {
+        if (!location.state) {
+            navigate('/drug_search');
         }
+    }, [location.state, navigate]);
 
-        return result;
-    };
+    console.log("location.state = ",location.state);
+
+    if (!location.state) {
+        return null; // navigate가 호출될 때까지 아무것도 렌더링하지 않습니다.
+    }
+
+    const { drug } = location.state;
+//    const drug = document.getElementById("drug");
+
+    const ele = [
+            { key: '제품사진', value: drug.itemImage ? <img src={drug.itemImage} alt={drug.itemName} /> : 'N/A' },
+            { key: '제품명', value: drug.itemName },
+            { key: '업체명', value: drug.entpName },
+            { key: '효능', value: drug.efcyQesitm },
+            { key: '사용법', value: drug.useMethodQesitm },
+            { key: '주의사항경고', value: drug.atpnWarnQesitm },
+            { key: '주의사항', value: drug.atpnQesitm },
+            { key: '상호작용', value: drug.intrcQesitm },
+            { key: '부작용', value: drug.seQesitm },
+            { key: '보관법', value: drug.depositMethodQesitm }
+        ];
+
+        const list = () => {
+            return ele.map((item, index) => (
+                <tr key={index} className="list" height={item.height}>
+                    <td>{item.key}</td>
+                    <td>{item.value}</td>
+                </tr>
+            ));
+        };
 
     return (
         <div>

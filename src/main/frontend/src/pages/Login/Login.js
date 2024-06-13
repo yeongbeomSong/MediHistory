@@ -56,24 +56,60 @@ function Login() {
 
   // 폼 제출 시 호출
   const handleSubmit = async (e, loginTypeLevel) => {
+    setModalIsOpen(true);
     e.preventDefault();
     const userData = { ...form, loginTypeLevel }
     console.log("userData : ",userData);
     const result = await sendData({ ...form, loginTypeLevel });
     console.log("result : ",result);
     setResponseMap(result);
-    setModalIsOpen(true);
   };
 
   const sendData = async (data) => {
       try {
-        const response = await axios.post('http://localhost:8080/mh/social-login', data);
+        const response = await axios.get('http://localhost:8080/social-login', {
+            params: data,
+        });
         return response.data;
       } catch (error) {
         console.error('Error:', error);
         return {};
       }
-    };
+  };
+
+  const cancelAuth = async (data) => {
+        try {
+          const response = await axios.get('http://localhost:8080/cancel-auth', {
+              params: data,
+              withCredentials: true,
+          });
+        } catch (error) {
+          console.error('Error:', error);
+        }
+  };
+
+  const reqAuth = (data) => {
+      const params = new URLSearchParams(data).toString();
+      const url = `http://localhost:8080/simple-auth?${params}`;
+
+      window.location.href = url;
+  };
+
+
+   const handleModalSubmit = async (e, simpleAuth) => {
+       e.preventDefault();
+       console.log("simpleAuth : ",simpleAuth);
+       const authData = { ...responseMap, simpleAuth };
+       console.log("authData : ",authData);
+
+       if (simpleAuth === "1") {
+            await reqAuth(authData);
+       } else {
+            setModalIsOpen(false);
+            await cancelAuth(authData);
+       }
+
+     };
 
   // 입력 필드의 렌더링과 유효성 검사
   const renderInputField = (field, type, placeholder, pattern, title) => (
@@ -110,7 +146,7 @@ function Login() {
             <div className="form-container">
               {renderInputField('name', 'text', '이름', undefined, '이름은 필수 정보입니다.')}
               {renderInputField('birthdate', 'text', '생년월일', '\\d{8}', '생년월일은 8자리로 입력하세요.')}
-              {renderInputField('phoneNumber', 'tel', '핸드폰번호', '\\d{11}', '핸드폰 번호는 숫자만 입력하세요.')}
+              {renderInputField('phoneNumber', 'text', '핸드폰번호', '\\d{11}', '핸드폰 번호는 숫자만 입력하세요.')}
 
               <div className="login-buttons">
                 <div className="kakao-button">
@@ -129,8 +165,8 @@ function Login() {
           <Modal className="auth-background" isOpen={modalIsOpen}>
             <div className="auth-wait">인증서 동의 후 확인 버튼을 눌러주세요</div>
             <div align="center">
-              <button className="cancel-btn" onMouseUp={() => setModalIsOpen(false)}>취소</button>
-              <button className="regist-btn" onMouseUp={() => setModalIsOpen(false)}>확인</button>
+              <button className="cancel-btn" onClick={(e) => handleModalSubmit(e, "0")}>취소</button>
+              <button className="regist-btn" onClick={(e) => handleModalSubmit(e, "1")}>확인</button>
             </div>
           </Modal>
         </div>

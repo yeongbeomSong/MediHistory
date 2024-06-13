@@ -213,3 +213,7 @@ a {
     transform: translateX(-50%);
 } 
 
+.detail-btn {
+    border: none;
+    background-color: #ffffff;
+}

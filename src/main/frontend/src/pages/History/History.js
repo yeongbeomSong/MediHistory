@@ -1,8 +1,33 @@
 import './History.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function History() {
     const [selectedPeriod, setSelectedPeriod] = useState('전체'); // 초기 선택은 '전체'
+    const [mediData, setMediData] = useState({});
+    const [name, setName] = useState('');
+    const navigate = useNavigate();
+
+     useEffect(() => {
+             // 서버로부터 데이터 fetch
+             fetch('http://localhost:8080/get-medi-list', {
+                 method: 'GET',
+                 credentials: 'include'
+             })
+             .then(response => response.json())
+             .then(data => {
+                 setMediData(data);
+             })
+             .catch(error => {
+                 console.error("There was an error fetching the data!", error);
+             });
+     }, [])
+
+
 
     const handlePeriodClick = (period) => {
         setSelectedPeriod(period);
@@ -21,25 +46,30 @@ function History() {
         ));
     };
 
+    const handleDetailClick = (data) => {
+        navigate(`/medi_detail?data=${encodeURIComponent(JSON.stringify(data))}`);
+    };
+
     const repeatList = () => {
-        const result1 = [];
-        for (let i = 1; i <= 10; i++) {
-            result1.push(
-                <tr className="list" key={i}>
-                    <td width="5%"><h4>{i}</h4></td>
-                    <td width="19%"></td>
-                    <td width="19%"></td>
-                    <td width="19%"></td>
-                    <td width="19%"></td>
-                    <td width="19%">
-                        <a href="#!">
+        console.log(mediData);
+        if(mediData && mediData.length > 0) {
+            return mediData.map((m, index) => (
+                <tr className="list">
+                    <td>{index + 1}</td>
+                    <td>{m.resTreatStartDate}</td>
+                    <td>{m.resHospitalName}</td>
+                    <td>{m.resTreatType}</td>
+                    <td>{m.resPrescribeCnt}</td>
+                    <td>
+                        <button className='detail-btn' onClick={() => handleDetailClick(m.resMediDetailList)}>
                             <img src={process.env.PUBLIC_URL + '/go.png'} alt="" />
-                        </a>
+                        </button>
                     </td>
                 </tr>
-            );
+            ));
+        } else {
+            return <tr height='200px'><td colSpan='6'>검색 결과가 없습니다.</td></tr>;
         }
-        return result1;
     };
 
     const repeatNum = () => {
@@ -74,7 +104,7 @@ function History() {
             </div>
 
             <div className="title">
-                <h1 style={{ color: "#5679E4", fontWeight: "bolder" }}>ㅇㅇㅇ님의 진료 내역</h1>
+                <h1 style={{ color: "#5679E4", fontWeight: "bolder" }}>{name}님의 진료 내역</h1>
             </div>
 
 
