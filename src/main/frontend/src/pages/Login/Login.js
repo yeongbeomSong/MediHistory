@@ -56,6 +56,13 @@ function Login() {
 
   // 폼 제출 시 호출
   const handleSubmit = async (e, loginTypeLevel) => {
+    const { name, birthdate, phoneNumber } = form;
+
+    if (!name || !birthdate || !phoneNumber) {
+     alert('모든 정보를 입력해주세요.');
+     return;
+    }
+
     setModalIsOpen(true);
     e.preventDefault();
     const userData = { ...form, loginTypeLevel }

@@ -49,7 +49,7 @@ public class Controller {
         System.out.println("requestAuth");
         System.out.println("authData : " + params);
         String result = RequestAuth.requestAuth(params);
-        String name = URLEncoder.encode((String) params.get("userName"), "UTF-8");
+        String name = (String) params.get("userName");
         System.out.println("사용자 이름 : " + name);
 
         Thread.sleep(100);
@@ -59,9 +59,19 @@ public class Controller {
         ArrayList<MediDTO> mediList = MediResult.mediResult(result);
 
         session.setAttribute("mediList", mediList);
-
+        session.setAttribute("name", name);
 
         httpServletResponse.sendRedirect("http://localhost:3000/medi_history");
+    }
+
+    //유저 이름
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+    @GetMapping("/get-name")
+    public Map<String, String> getName(HttpSession session) {
+        String name = (String) session.getAttribute("name");
+        Map<String, String> response = new HashMap<>();
+        response.put("name", name);
+        return response;
     }
 
     //진료내역

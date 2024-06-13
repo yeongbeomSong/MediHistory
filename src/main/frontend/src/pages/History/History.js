@@ -25,6 +25,19 @@ function History() {
              .catch(error => {
                  console.error("There was an error fetching the data!", error);
              });
+
+             fetch('http://localhost:8080/get-name', {
+                method: 'GET',
+                credentials: 'include'
+             })
+             .then(response => response.json())
+             .then(data => {
+                setName(data.name);
+                console.log("name : ",name);
+             })
+             .catch(error => {
+                console.error("There was an error fetching the data!", error);
+             });
      }, [])
 
 
@@ -135,15 +148,6 @@ function History() {
             </div>
             <div>
                 <p></p>
-            </div>
-            <div>
-                <table className="page_btn">
-                    <tbody>
-                        <tr>
-                            {repeatNum()}
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     );
