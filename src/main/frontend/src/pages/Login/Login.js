@@ -24,6 +24,7 @@ function Login() {
   //modal 제어
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [responseMap, setResponseMap] = useState({});
+  const [loading, setLoading] = useState(false);
 
   // 입력값 변경될 때 호출, 입력값 업데이트하고 유효성 검사 수행
   const handleChange = (e) => {
@@ -110,6 +111,7 @@ function Login() {
        console.log("authData : ",authData);
 
        if (simpleAuth === "1") {
+            setLoading(true);
             await reqAuth(authData);
        } else {
             setModalIsOpen(false);
@@ -170,10 +172,12 @@ function Login() {
             </div>
           </form>
           <Modal className="auth-background" isOpen={modalIsOpen}>
-            <div className="auth-wait">인증서 동의 후 확인 버튼을 눌러주세요</div>
+            <div className="auth-wait">
+                {loading ? '잠시 기다려주세요...' : '인증서 동의 후 확인 버튼을 눌러주세요'}
+            </div>
             <div align="center">
-              <button className="cancel-btn" onClick={(e) => handleModalSubmit(e, "0")}>취소</button>
-              <button className="regist-btn" onClick={(e) => handleModalSubmit(e, "1")}>확인</button>
+              <button className="cancel-btn" onClick={(e) => handleModalSubmit(e, "0")} disabled={loading}>취소</button>
+              <button className="regist-btn" onClick={(e) => handleModalSubmit(e, "1")} disabled={loading}>확인</button>
             </div>
           </Modal>
         </div>
